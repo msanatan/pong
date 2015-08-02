@@ -49,9 +49,25 @@
     this.paddle.render();
   };
 
+  var Ball = function(x, y, radius) {
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.xSpeed = 0;
+    this.ySpeed = 3;
+  };
+
+  Ball.prototype.render = function() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, Math.PI * 2, false);
+    ctx.fillStyle = "skyblue";
+    ctx.fill();
+  }
+
   // Game logic begins here
   var player = new Player();
   var computer = new Computer();
+  var ball = new Ball(WIDTH / 2, HEIGHT / 2, 10);
 
   var clear = function() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -64,8 +80,17 @@
   var render = function () {
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    // Draw separating line
+    ctx.beginPath();
+    ctx.moveTo(WIDTH / 2, 0);
+    ctx.lineTo(WIDTH / 2, HEIGHT);
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.stroke();
+
     player.render();
     computer.render();
+    ball.render();
   };
 
   var step = function() {
