@@ -53,8 +53,8 @@
     this.x = x;
     this.y = y;
     this.radius = radius;
-    this.xSpeed = 0;
-    this.ySpeed = 3;
+    this.xSpeed = 3;
+    this.ySpeed = 0;
   };
 
   Ball.prototype.render = function() {
