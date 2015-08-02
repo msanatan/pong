@@ -8,6 +8,13 @@
   var ctx = canvas.getContext('2d');
   var FPS = 1000 / 60;
 
+  var animate = window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      function(callback) {
+        window.setTimeout(callback, 1000/60)
+      };
+
   // Define game objects, i.e paddle and ball
   var Paddle = function(x, y, width, height) {
     this.x = x;
@@ -64,8 +71,8 @@
   var step = function() {
     update();
     render();
-    requestAnimationFrame(FPS);
+    animate(FPS);
   }
 
-  requestAnimationFrame(step());
+  animate(step());
 })();
