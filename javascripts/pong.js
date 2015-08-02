@@ -53,7 +53,7 @@
     this.x = x;
     this.y = y;
     this.radius = radius;
-    this.xSpeed = 3;
+    this.xSpeed = -3;
     this.ySpeed = 0;
   };
 
@@ -62,7 +62,12 @@
     ctx.arc(this.x, this.y, this.radius, Math.PI * 2, false);
     ctx.fillStyle = "skyblue";
     ctx.fill();
-  }
+  };
+
+  Ball.prototype.update = function() {
+    this.x += this.xSpeed;
+    this.y += this.ySpeed;
+  };
 
   // Game logic begins here
   var player = new Player();
@@ -74,7 +79,7 @@
   };
 
   var update = function() {
-
+    ball.update();
   };
 
   var render = function () {
@@ -97,7 +102,7 @@
     update();
     render();
     animate(step);
-  }
+  };
 
   animate(step);
 })();
