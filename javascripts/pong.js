@@ -1,14 +1,30 @@
 (function() {
   'use strict';
   var canvas = document.getElementById('game');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+  canvas.width = width;
+  canvas.height = height;
   var ctx = canvas.getContext('2d');
   var FPS = 1000 / 60;
 
-  var draw = function () {
+  var clear = function() {
+    ctx.clearRect(0, 0, width, height);
+  };
+
+  var update = function() {
 
   };
 
-  draw();
+  var render = function () {
+
+  };
+
+  var step = function() {
+    update();
+    render();
+    requestAnimationFrame(FPS);
+  }
+
+  requestAnimationFrame(step());
 })();
