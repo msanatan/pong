@@ -105,6 +105,16 @@
       ball.y = HEIGHT - ball.radius;
       ball.ySpeed = -ball.ySpeed;
     }
+
+    // Determine if ball hits player or computer
+    if (ball.x - ball.radius <= player.paddle.x + player.paddle.width) {
+      ball.xSpeed = -ball.xSpeed;
+      ball.x += ball.xSpeed;
+    }
+    else if (ball.x + ball.radius >= computer.paddle.x) {
+      ball.xSpeed = -ball.xSpeed;
+      ball.x += ball.xSpeed;
+    }
   };
 
   var update = function() {
