@@ -33,6 +33,7 @@
   var Player = function() {
     var playerHeight = 100;
     this.paddle = new Paddle(10, HEIGHT / 2 - (playerHeight / 2), 10, playerHeight);
+    this.score = 0;
   };
 
   Player.prototype.render = function() {
@@ -43,6 +44,7 @@
     var playerWidth = 10;
     var playerHeight = 100;
     this.paddle = new Paddle(WIDTH - 10 - playerWidth, HEIGHT / 2 - (playerHeight / 2), playerWidth, playerHeight);
+    this.score = 0;
   };
 
   Computer.prototype.render = function() {
@@ -78,8 +80,28 @@
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
   };
 
+  var checkCollision = function() {
+    //Determine if point was scored
+    if (ball.x < 0) {
+      computer.score += 1;
+    }
+    if (ball.x > WIDTH) {
+      player.score += 1;
+    }
+
+    // Determine if ball the top or bottom
+    if (ball.y - ball.radius <= 0) {
+      ball.y = ball.radius;
+      ball.ySpeed = -ball.ySpeed;
+    } else if (ball.y + ball.radius >= HEIGHT) {
+      ball.y = HEIGHT - ball.radius;
+      ball.ySpeed = -ball.ySpeed;
+    }
+  };
+
   var update = function() {
     ball.update();
+    checkCollision();
   };
 
   var render = function () {
