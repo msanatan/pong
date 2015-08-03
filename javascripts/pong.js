@@ -1,14 +1,17 @@
 (function() {
   'use strict';
-  var canvas = document.getElementById('game');
-  var WIDTH = window.innerWidth;
-  var HEIGHT = window.innerHeight;
+  var canvas, WIDTH, HEIGHT, ctx, FPS, keysDown, animate, Paddle, Player, 
+    Computer, Ball, player, computer, ball, checkCollision, update, render, 
+    step;
+
+  canvas = document.getElementById('game');
+  WIDTH = window.innerWidth;
+  HEIGHT = window.innerHeight;
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
-  var ctx = canvas.getContext('2d');
-  var FPS = 1000 / 60;
-
-  var keysDown = {};
+  ctx = canvas.getContext('2d');
+  FPS = 1000 / 60;
+  keysDown = {};
 
   window.addEventListener('keydown', function(event) {
     keysDown[event.keyCode] = true;
@@ -18,7 +21,7 @@
     delete keysDown[event.keyCode];
   });
 
-  var animate = window.requestAnimationFrame ||
+  animate = window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
       window.mozRequestAnimationFrame ||
       function(callback) {
@@ -26,7 +29,7 @@
       };
 
   // Define game objects, i.e paddle and ball
-  var Paddle = function(x, y, width, height) {
+  Paddle = function(x, y, width, height) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -56,7 +59,7 @@
     ctx.fillRect(this.x, this.y, this.width, this.height);
   };
 
-  var Player = function() {
+  Player = function() {
     var playerHeight = 100;
     this.paddle = new Paddle(10, HEIGHT / 2 - (playerHeight / 2), 10, playerHeight);
     this.score = 0;
@@ -72,8 +75,9 @@
   };
 
   Player.prototype.update = function() {
-    for (var key in keysDown) {
-      var value = parseInt(key);
+    var key, value;
+    for (key in keysDown) {
+      value = parseInt(key, 10);
       switch(value) {
         case 87: //W
           this.paddle.move(0, -5);
@@ -87,9 +91,10 @@
     }
   };
 
-  var Computer = function() {
-    var playerWidth = 10;
-    var playerHeight = 100;
+  Computer = function() {
+    var playerWidth, playerHeight;
+    playerWidth = 10;
+    playerHeight = 100;
     this.paddle = new Paddle(WIDTH - 10 - playerWidth, HEIGHT / 2 - (playerHeight / 2), playerWidth, playerHeight);
     this.score = 0;
   };
@@ -103,7 +108,7 @@
     ctx.fillText(this.score, (WIDTH / 2) + 40, 80);
   };
 
-  var Ball = function(x, y, radius) {
+  Ball = function(x, y, radius) {
     this.x = x;
     this.y = y;
     this.radius = radius;
@@ -124,15 +129,11 @@
   };
 
   // Game logic begins here
-  var player = new Player();
-  var computer = new Computer();
-  var ball = new Ball(WIDTH / 2, HEIGHT / 2, 10);
+  player = new Player();
+  computer = new Computer();
+  ball = new Ball(WIDTH / 2, HEIGHT / 2, 10);
 
-  var clear = function() {
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-  };
-
-  var checkCollision = function() {
+  checkCollision = function() {
     //Determine if point was scored
     if (ball.x < 0 || ball.x > WIDTH) {
       if (ball.x < 0) {
@@ -171,13 +172,13 @@
     }
   };
 
-  var update = function() {
+  update = function() {
     ball.update();
     checkCollision();
     player.update();
   };
 
-  var render = function () {
+  render = function () {
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
     // Draw separating line
@@ -193,7 +194,7 @@
     ball.render();
   };
 
-  var step = function() {
+  step = function() {
     update();
     render();
     animate(step);
