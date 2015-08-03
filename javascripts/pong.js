@@ -82,11 +82,19 @@
 
   var checkCollision = function() {
     //Determine if point was scored
-    if (ball.x < 0) {
-      computer.score += 1;
-    }
-    if (ball.x > WIDTH) {
-      player.score += 1;
+    if (ball.x < 0 || ball.x > WIDTH) {
+      ball.x = WIDTH / 2;
+      ball.y = HEIGHT / 2;
+      ball.ySpeed = 0;
+
+      if (ball.x < 0) {
+        computer.score += 1;
+        ball.xSpeed = -3;
+      }
+      else if (ball.x > WIDTH) {
+        player.score += 1;
+        ball.xSpeed = 3;
+      }
     }
 
     // Determine if ball the top or bottom
