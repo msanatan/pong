@@ -8,6 +8,16 @@
   var ctx = canvas.getContext('2d');
   var FPS = 1000 / 60;
 
+  var keysDown = {};
+
+  window.addEventListener('keydown', function(event) {
+    keysDown[event.keyCode] = true;
+  });
+
+  window.addEventListener('keyup', function(event) {
+    delete keysDown[event.keyCode];
+  });
+
   var animate = window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
       window.mozRequestAnimationFrame ||
@@ -54,6 +64,23 @@
 
   Player.prototype.render = function() {
     this.paddle.render();
+  };
+
+  Player.prototype.update = function() {
+    for (var key in keysDown) {
+      var value = parseInt(key);
+      console.log(value);
+      switch(value) {
+        case 87: //W
+          this.paddle.move(0, -5);
+          break;
+        case 83: //S
+          this.paddle.move(0, 5);
+          break;
+        default:
+          break;
+      }
+    }
   };
 
   var Computer = function() {
@@ -138,6 +165,7 @@
   var update = function() {
     ball.update();
     checkCollision();
+    player.update();
   };
 
   var render = function () {
