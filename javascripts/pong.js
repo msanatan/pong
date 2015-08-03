@@ -22,7 +22,7 @@
       window.webkitRequestAnimationFrame ||
       window.mozRequestAnimationFrame ||
       function(callback) {
-        window.setTimeout(callback, FPS)
+        window.setTimeout(callback, FPS);
       };
 
   // Define game objects, i.e paddle and ball
@@ -52,7 +52,7 @@
   };
 
   Paddle.prototype.render = function() {
-    ctx.fillStyle = "#FFFFFF";
+    ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(this.x, this.y, this.width, this.height);
   };
 
@@ -69,7 +69,6 @@
   Player.prototype.update = function() {
     for (var key in keysDown) {
       var value = parseInt(key);
-      console.log(value);
       switch(value) {
         case 87: //W
           this.paddle.move(0, -5);
@@ -105,7 +104,7 @@
   Ball.prototype.render = function() {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, Math.PI * 2, false);
-    ctx.fillStyle = "skyblue";
+    ctx.fillStyle = 'skyblue';
     ctx.fill();
   };
 
