@@ -110,10 +110,12 @@
     if (ball.x - ball.radius <= player.paddle.x + player.paddle.width) {
       ball.xSpeed = -ball.xSpeed;
       ball.x += ball.xSpeed;
+      ball.ySpeed += player.paddle.ySpeed / 2;
     }
     else if (ball.x + ball.radius >= computer.paddle.x) {
       ball.xSpeed = -ball.xSpeed;
       ball.x += ball.xSpeed;
+      ball.ySpeed += computer.paddle.ySpeed / 2;
     }
   };
 
