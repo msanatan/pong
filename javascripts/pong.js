@@ -64,6 +64,11 @@
 
   Player.prototype.render = function() {
     this.paddle.render();
+
+    // Print score on screen
+    ctx.font = 'bold 80px Helvetica, Verdana, san-serif';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText(this.score, (WIDTH / 2) - 80, 80);
   };
 
   Player.prototype.update = function() {
@@ -91,6 +96,11 @@
 
   Computer.prototype.render = function() {
     this.paddle.render();
+
+    // Print score on screen
+    ctx.font = 'bold 80px Helvetica, Verdana, san-serif';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText(this.score, (WIDTH / 2) + 40, 80);
   };
 
   var Ball = function(x, y, radius) {
@@ -125,10 +135,6 @@
   var checkCollision = function() {
     //Determine if point was scored
     if (ball.x < 0 || ball.x > WIDTH) {
-      ball.x = WIDTH / 2;
-      ball.y = HEIGHT / 2;
-      ball.ySpeed = 0;
-
       if (ball.x < 0) {
         computer.score += 1;
         ball.xSpeed = -3;
@@ -137,6 +143,10 @@
         player.score += 1;
         ball.xSpeed = 3;
       }
+
+      ball.x = WIDTH / 2;
+      ball.y = HEIGHT / 2;
+      ball.ySpeed = 0;
     }
 
     // Determine if ball the top or bottom
