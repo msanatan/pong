@@ -1,21 +1,25 @@
-var AI = {};
+var AI;
+
+AI = function(baseSpeed) {
+  this.baseSpeed = baseSpeed;
+};
 
 // Simply follows the ball at all times
-AI.easy = function(player, ball) {
+AI.prototype.easy = function(player, ball) {
   'use strict';
   var newY;
   newY = ball.y - (player.paddle.y + player.paddle.height / 2);
   if (newY < 0 && newY < -4) {
-    newY = -5;
+    newY = -this.baseSpeed;
   } else if (newY > 0 && newY > 4) {
-    newY = 5;
+    newY = this.baseSpeed;
   }
 
   return newY;
 };
 
 // Follows the ball only when in its half, otherwise stay put
-AI.medium = function(player, ball, canvasWidth, canvasHeight) {
+AI.prototype.medium = function(player, ball, canvasWidth, canvasHeight) {
   'use strict';
   var newY;
   // If ball is moving towards computer
@@ -23,9 +27,9 @@ AI.medium = function(player, ball, canvasWidth, canvasHeight) {
     // Follow the ball
     newY = ball.y - (player.paddle.y + player.paddle.height / 2);
     if (newY < 0 && newY < -4) {
-      newY = -5.5;
+      newY = -(this.baseSpeed - 0.5);
     } else if (newY > 0 && newY > 4) {
-      newY = 5.5;
+      newY = this.baseSpeed + 0.5;
     }
   } else {
     newY = 0;
@@ -35,7 +39,7 @@ AI.medium = function(player, ball, canvasWidth, canvasHeight) {
 };
 
 // Predict where the ball is going to land
-AI.hard = function(player, ball, canvasWidth, canvasHeight) {
+AI.prototype.hard = function(player, ball, canvasWidth, canvasHeight) {
   'use strict';
   var newY;
   return newY;
