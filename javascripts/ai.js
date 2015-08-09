@@ -9,9 +9,9 @@ AI.prototype.easy = function(player, ball) {
   'use strict';
   var newY;
   newY = ball.y - (player.paddle.y + player.paddle.height / 2);
-  if (newY < 0 && newY < -4) {
+  if (newY < -4) {
     newY = -this.baseSpeed;
-  } else if (newY > 0 && newY > 4) {
+  } else if (newY > 4) {
     newY = this.baseSpeed;
   }
 
@@ -26,9 +26,9 @@ AI.prototype.medium = function(player, ball, canvasWidth, canvasHeight) {
   if (ball.xSpeed > 0 && ball.x > (canvasWidth / 1.75)) {
     // Follow the ball
     newY = ball.y - (player.paddle.y + player.paddle.height / 2);
-    if (newY < 0 && newY < -4) {
+    if (newY < -4) {
       newY = -(this.baseSpeed + 0.5);
-    } else if (newY > 0 && newY > 4) {
+    } else if (newY > 4) {
       newY = this.baseSpeed + 0.5;
     }
   } else {
