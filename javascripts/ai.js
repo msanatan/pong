@@ -27,7 +27,7 @@ AI.prototype.medium = function(player, ball, canvasWidth, canvasHeight) {
     // Follow the ball
     newY = ball.y - (player.paddle.y + player.paddle.height / 2);
     if (newY < 0 && newY < -4) {
-      newY = -(this.baseSpeed - 0.5);
+      newY = -(this.baseSpeed + 0.5);
     } else if (newY > 0 && newY > 4) {
       newY = this.baseSpeed + 0.5;
     }
