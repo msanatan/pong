@@ -108,21 +108,10 @@
     ctx.fillText(this.score, (WIDTH / 2) + 40, 80);
   };
 
-  Computer.prototype.automove = function(ball) {
-    var y, diff;
-    y = ball.y;
-    diff = -((this.paddle.y + this.paddle.height / 2) - y);
-    if (diff < 0 && diff < -4) {
-      diff = -5;
-    } else if (diff > 0 && diff > 4) {
-      diff = 5;
-    }
-
-    this.paddle.move(0, diff);
-  };
-
   Computer.prototype.update = function() {
-    this.automove(ball);
+    var newY;
+    newY = AI.easy(computer, ball);
+    this.paddle.move(0, newY);
   };
 
   Ball = function(x, y, radius) {
