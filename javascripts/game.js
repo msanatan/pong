@@ -2,7 +2,7 @@
   'use strict';
   var canvas, WIDTH, HEIGHT, ctx, FPS, keysDown, animate, Paddle, Player,
     Computer, Ball, player, computer, ball, checkCollision, update, render,
-    step;
+    step, ai;
 
   canvas = document.getElementById('game');
   WIDTH = window.innerWidth;
@@ -12,6 +12,7 @@
   ctx = canvas.getContext('2d');
   FPS = 1000 / 60;
   keysDown = {};
+  ai = new AI(5);
 
   window.addEventListener('keydown', function(event) {
     keysDown[event.keyCode] = true;
@@ -110,7 +111,7 @@
 
   Computer.prototype.update = function() {
     var newY;
-    newY = AI.easy(computer, ball);
+    newY = ai.easy(computer, ball);
     this.paddle.move(0, newY);
   };
 
