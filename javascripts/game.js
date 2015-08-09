@@ -62,7 +62,8 @@
 
   Player = function() {
     var playerHeight = 100;
-    this.paddle = new Paddle(10, HEIGHT / 2 - (playerHeight / 2), 10, playerHeight);
+    this.paddle = new Paddle(10, HEIGHT / 2 - (playerHeight / 2), 10,
+                             playerHeight);
     this.score = 0;
   };
 
@@ -96,7 +97,9 @@
     var playerWidth, playerHeight;
     playerWidth = 10;
     playerHeight = 100;
-    this.paddle = new Paddle(WIDTH - 10 - playerWidth, HEIGHT / 2 - (playerHeight / 2), playerWidth, playerHeight);
+    this.paddle = new Paddle(WIDTH - 10 - playerWidth,
+                             HEIGHT / 2 - (playerHeight / 2),
+                             playerWidth, playerHeight);
     this.score = 0;
   };
 
@@ -167,12 +170,16 @@
     }
 
     // Determine if ball hits player or computer
-    if ((ball.x <= player.paddle.x + player.paddle.width) && (ball.y <= player.paddle.y + player.paddle.height && ball.y >= player.paddle.y)) {
+    if ((ball.x <= player.paddle.x + player.paddle.width) &&
+        (ball.y <= player.paddle.y + player.paddle.height &&
+          ball.y >= player.paddle.y)) {
       ball.xSpeed = -(ball.xSpeed - 0.5);
       ball.x += ball.xSpeed;
       ball.ySpeed += player.paddle.ySpeed / 2;
     }
-    else if ((ball.x + ball.radius >= computer.paddle.x) && (ball.y <= computer.paddle.y + computer.paddle.height && ball.y >= computer.paddle.y)) {
+    else if ((ball.x + ball.radius >= computer.paddle.x) &&
+             (ball.y <= computer.paddle.y + computer.paddle.height &&
+                ball.y >= computer.paddle.y)) {
       ball.xSpeed = -(ball.xSpeed + 0.5);
       ball.x += ball.xSpeed;
       ball.ySpeed += computer.paddle.ySpeed / 2;
