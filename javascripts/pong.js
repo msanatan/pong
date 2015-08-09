@@ -178,12 +178,12 @@
 
     // Determine if ball hits player or computer
     if ((ball.x <= player.paddle.x + player.paddle.width) && (ball.y <= player.paddle.y + player.paddle.height && ball.y >= player.paddle.y)) {
-      ball.xSpeed = -ball.xSpeed;
+      ball.xSpeed = -(ball.xSpeed - 0.5);
       ball.x += ball.xSpeed;
       ball.ySpeed += player.paddle.ySpeed / 2;
     }
     else if ((ball.x + ball.radius >= computer.paddle.x) && (ball.y <= computer.paddle.y + computer.paddle.height && ball.y >= computer.paddle.y)) {
-      ball.xSpeed = -ball.xSpeed;
+      ball.xSpeed = -(ball.xSpeed + 0.5);
       ball.x += ball.xSpeed;
       ball.ySpeed += computer.paddle.ySpeed / 2;
     }
