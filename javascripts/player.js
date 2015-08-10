@@ -1,6 +1,8 @@
-Player = function() {
+Player = function(canvasWidth, canvasHeight) {
   var playerHeight = 100;
-  this.paddle = new Paddle(10, HEIGHT / 2 - (playerHeight / 2), 10,
+  this.canvasWidth = canvasWidth;
+  this.canvasHeight = canvasHeight;
+  this.paddle = new Paddle(10, this.canvasHeight / 2 - (playerHeight / 2), 10,
                            playerHeight);
   this.score = 0;
 };
@@ -11,7 +13,7 @@ Player.prototype.render = function(context) {
   // Print score on screen
   context.font = 'bold 80px Helvetica, Verdana, san-serif';
   context.fillStyle = '#FFFFFF';
-  context.fillText(this.score, (WIDTH / 2) - 80, 80);
+  context.fillText(this.score, (this.canvasWidth / 2) - 80, 80);
 };
 
 Player.prototype.update = function(keysDown) {
