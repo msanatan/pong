@@ -17,9 +17,9 @@ GameEngine.prototype.init = function() {
   this.mouse = {
     x: 0,
     y: 0,
-    clicked: false,
-    down: false
+    clicked: false
   };
+
   engine = this;
   this.canvas.addEventListener('keydown', function(e) {
     engine.keysDown[e.keyCode] = true;
@@ -30,9 +30,16 @@ GameEngine.prototype.init = function() {
   });
 
   this.canvas.addEventListener('mouseover', function(e) {
+    engine.mouse.x = e.offsetX;
+    engine.mouse.y = e.offsetY;
   });
 
-  this.canvas.addEventListener('click', function(e) {
+  this.canvas.addEventListener('mousedown', function(e) {
+    engine.mouse.clicked = true;
+  });
+
+  this.canvas.addEventListener('mouseup', function(e) {
+    engine.mouse.clicked = false;
   });
 };
 
