@@ -1,9 +1,10 @@
-Computer = function(canvasWidth, canvasHeight) {
+Computer = function(canvasWidth, canvasHeight, ai) {
   var playerWidth, playerHeight;
   playerWidth = 10;
   playerHeight = 100;
   this.canvasWidth = canvasWidth;
   this.canvasHeight = canvasHeight;
+  this.ai = ai;
   this.paddle = new Paddle(this.canvasWidth - 10 - playerWidth,
                            this.canvasHeight / 2 - (playerHeight / 2),
                            playerWidth, playerHeight);
@@ -19,8 +20,8 @@ Computer.prototype.render = function(context) {
   context.fillText(this.score, (this.canvasWidth / 2) + 40, 80);
 };
 
-Computer.prototype.update = function(ai, player, ball) {
+Computer.prototype.update = function(player, ball) {
   var newY;
-  newY = ai.easy(player, ball);
+  newY = this.ai.easy(player, ball);
   this.paddle.move(0, newY);
 };

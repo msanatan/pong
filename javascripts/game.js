@@ -6,7 +6,7 @@ Game = function(width, height) {
   this.height = height;
   this.ai = new AI(5);
   this.player = new Player(width, height);
-  this.computer = new Computer(width, height);
+  this.computer = new Computer(width, height, this.ai);
   this.ball = new Ball(width / 2, height / 2, 10);
 };
 
@@ -59,7 +59,7 @@ Game.prototype.update = function(keysDown) {
   this.ball.update();
   this.checkCollision();
   this.player.update(keysDown);
-  this.computer.update(this.ai, this.computer, this.ball);
+  this.computer.update(this.computer, this.ball);
 };
 
 Game.prototype.render = function(context) {
