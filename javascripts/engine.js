@@ -1,12 +1,39 @@
 var GameEngine, canvas, WIDTH, HEIGHT, engine, game, update, render, step, animate;
 
 GameEngine = function(canvas, width, height, FPS) {
+  'use strict';
   this.canvas = canvas;
   this.canvas.width = width;
   this.canvas.height = height;
   this.FPS = FPS;
+};
+
+GameEngine.prototype.init = function() {
+  'use strict';
+  var engine;
+  this.canvas.focus();
   this.ctx = this.canvas.getContext('2d');
   this.keysDown = {};
+  this.mouse = {
+    x: 0,
+    y: 0,
+    clicked: false,
+    down: false
+  };
+  engine = this;
+  this.canvas.addEventListener('keydown', function(e) {
+    engine.keysDown[e.keyCode] = true;
+  });
+
+  this.canvas.addEventListener('keyup', function(e) {
+    delete engine.keysDown[e.keyCode];
+  });
+
+  this.canvas.addEventListener('mouseover', function(e) {
+  });
+
+  this.canvas.addEventListener('click', function(e) {
+  });
 };
 
 /*
@@ -20,21 +47,8 @@ WIDTH = window.innerWidth;
 HEIGHT = window.innerHeight;
 FPS = 60;
 engine = new GameEngine(canvas, WIDTH, HEIGHT, FPS);
+engine.init();
 game = new Game(engine.canvas.width, engine.canvas.height);
-
-window.addEventListener('keydown', function(event) {
-  engine.keysDown[event.keyCode] = true;
-});
-
-window.addEventListener('keyup', function(event) {
-  delete engine.keysDown[event.keyCode];
-});
-
-window.addEventListener('mouseover', function(event) {
-});
-
-window.addEventListener('click', function(event) {
-});
 
 animate = window.requestAnimationFrame ||
   window.webkitRequestAnimationFrame ||
