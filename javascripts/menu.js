@@ -21,14 +21,14 @@ Menu.prototype.render = function(context) {
   // Draw title
   context.font = 'bold 80px Monaco, Courier New, monospace';
   context.fillStyle = '#FFFFFF';
-  textMeasure = ctx.measureText(this.title);
+  textMeasure = context.measureText(this.title);
   context.fillText(this.title, (WIDTH / 2) - (textMeasure.width / 2), 100);
 
   // Draw items
   for (i = 0; i < this.items.length; i++) {
     context.font = 'bold 60px Monaco, Courier New, monospace';
     context.fillStyle = '#FFFFFF';
-    textMeasure = ctx.measureText(this.items[i]);
+    textMeasure = context.measureText(this.items[i]);
     context.fillText(this.items[i], (this.width / 2) -
                      (textMeasure.width / 2), 200 + itemY);
     itemY += 100;
