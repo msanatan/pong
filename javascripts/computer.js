@@ -1,3 +1,5 @@
+var Computer;
+
 Computer = function(canvasWidth, canvasHeight, ai) {
   var playerWidth, playerHeight;
   playerWidth = 10;
@@ -23,5 +25,5 @@ Computer.prototype.render = function(context) {
 Computer.prototype.update = function(player, ball) {
   var newY;
   newY = this.ai.easy(player, ball);
-  this.paddle.move(0, newY);
+  this.paddle.move(0, newY, this.canvasHeight);
 };

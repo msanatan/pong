@@ -1,3 +1,5 @@
+var Player;
+
 Player = function(canvasWidth, canvasHeight) {
   var playerHeight = 100;
   this.canvasWidth = canvasWidth;
@@ -22,10 +24,10 @@ Player.prototype.update = function(keysDown) {
     value = parseInt(key, 10);
     switch(value) {
       case 87: //W
-        this.paddle.move(0, -5);
+        this.paddle.move(0, -5, this.canvasHeight);
         break;
       case 83: //S
-        this.paddle.move(0, 5);
+        this.paddle.move(0, 5, this.canvasHeight);
         break;
       default:
         break;

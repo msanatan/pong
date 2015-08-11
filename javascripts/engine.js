@@ -10,7 +10,6 @@ GameEngine = function(canvasID, width, height, FPS) {
 
 GameEngine.prototype.init = function() {
   'use strict';
-  var self;
   this.canvas.focus();
   this.ctx = this.canvas.getContext('2d');
   this.keysDown = {};

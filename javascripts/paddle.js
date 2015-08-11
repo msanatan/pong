@@ -1,4 +1,6 @@
 // Define game objects, i.e paddle and ball
+var Paddle;
+
 Paddle = function(x, y, width, height) {
   this.x = x;
   this.y = y;
@@ -8,7 +10,7 @@ Paddle = function(x, y, width, height) {
   this.ySpeed = 0;
 };
 
-Paddle.prototype.move = function(x, y) {
+Paddle.prototype.move = function(x, y, height) {
   this.x += x;
   this.y += y;
   this.xSpeed = x;
@@ -18,8 +20,8 @@ Paddle.prototype.move = function(x, y) {
   if (this.y <= 0) {
     this.y = 0;
     this.ySpeed = 0;
-  } else if (this.y + this.height >= HEIGHT) {
-    this.y = HEIGHT - this.height;
+  } else if (this.y + this.height >= height) {
+    this.y = height - this.height;
     this.ySpeed = 0;
   }
 };

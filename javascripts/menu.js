@@ -22,7 +22,7 @@ Menu.prototype.render = function(context) {
   context.font = 'bold 80px Monaco, Courier New, monospace';
   context.fillStyle = '#FFFFFF';
   textMeasure = context.measureText(this.title);
-  context.fillText(this.title, (WIDTH / 2) - (textMeasure.width / 2), 100);
+  context.fillText(this.title, (this.width / 2) - (textMeasure.width / 2), 100);
 
   // Draw items
   for (i = 0; i < this.items.length; i++) {
