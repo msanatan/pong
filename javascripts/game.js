@@ -8,6 +8,7 @@ Game = function(width, height) {
   this.player = new Player(width, height);
   this.computer = new Computer(width, height, this.ai);
   this.ball = new Ball(width / 2, height / 2, 10);
+  this.pause = false;
 };
 
 Game.prototype.checkCollision = function() {
@@ -56,10 +57,19 @@ Game.prototype.checkCollision = function() {
 
 Game.prototype.update = function(keysDown) {
   'use strict';
-  this.ball.update();
-  this.checkCollision();
-  this.player.update(keysDown);
-  this.computer.update(this.computer, this.ball);
+  var key, value;
+  for (key in keysDown) {
+    value = parseInt(key, 10);
+    if (value === 27) {
+      this.pause = !this.pause;
+    }
+  }
+  if (!this.pause) {
+    this.ball.update();
+    this.checkCollision();
+    this.player.update(keysDown);
+    this.computer.update(this.computer, this.ball);
+  }
 };
 
 Game.prototype.render = function(context) {
