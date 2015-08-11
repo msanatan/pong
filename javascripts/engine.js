@@ -1,8 +1,8 @@
-var GameEngine, canvas, WIDTH, HEIGHT, engine, game, update, render, step, animate;
+var GameEngine, WIDTH, HEIGHT, FPS, engine, game, step;
 
-GameEngine = function(canvas, width, height, FPS) {
+GameEngine = function(canvasID, width, height, FPS) {
   'use strict';
-  this.canvas = canvas;
+  this.canvas = document.getElementById(canvasID);
   this.canvas.width = width;
   this.canvas.height = height;
   this.FPS = FPS;
@@ -10,7 +10,7 @@ GameEngine = function(canvas, width, height, FPS) {
 
 GameEngine.prototype.init = function() {
   'use strict';
-  var engine;
+  var self;
   this.canvas.focus();
   this.ctx = this.canvas.getContext('2d');
   this.keysDown = {};
@@ -20,28 +20,49 @@ GameEngine.prototype.init = function() {
     clicked: false
   };
 
-  engine = this;
   this.canvas.addEventListener('keydown', function(e) {
-    engine.keysDown[e.keyCode] = true;
-  });
+    this.keysDown[e.keyCode] = true;
+  }.bind(this));
 
   this.canvas.addEventListener('keyup', function(e) {
-    delete engine.keysDown[e.keyCode];
-  });
+    delete this.keysDown[e.keyCode];
+  }.bind(this));
 
   this.canvas.addEventListener('mouseover', function(e) {
-    engine.mouse.x = e.offsetX;
-    engine.mouse.y = e.offsetY;
-  });
+    this.mouse.x = e.offsetX;
+    this.mouse.y = e.offsetY;
+  }.bind(this));
 
   this.canvas.addEventListener('mousedown', function(e) {
-    engine.mouse.clicked = true;
-  });
+    this.mouse.clicked = true;
+  }.bind(this));
 
   this.canvas.addEventListener('mouseup', function(e) {
-    engine.mouse.clicked = false;
-  });
+    this.mouse.clicked = false;
+  }.bind(this));
 };
+
+GameEngine.prototype.register = function(screen) {
+  'use strict';
+  this.screen = screen;
+};
+
+GameEngine.prototype.update = function() {
+  'use strict';
+  this.screen.update(this.keysDown);
+};
+
+GameEngine.prototype.render = function() {
+  'use strict';
+  this.screen.render(this.ctx);
+};
+
+GameEngine.prototype.animate = (window.requestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  function(callback) {
+    window.setTimeout(callback, 1000 / this.FPS);
+  }).bind(this);
 
 /*
 var menu, title, mainMenuItems, game;
@@ -49,33 +70,19 @@ title = 'Yet Another Pong Clone';
 mainMenuItems = ['1P', '2P', 'Settings'];
 menu = new Menu(title, mainMenuItems, 0, 0, engine.canvas.width, engine.canvas.height);
 */
-canvas = document.getElementById('game');
 WIDTH = window.innerWidth;
 HEIGHT = window.innerHeight;
 FPS = 60;
-engine = new GameEngine(canvas, WIDTH, HEIGHT, FPS);
+engine = new GameEngine('game', WIDTH, HEIGHT, FPS);
 engine.init();
 game = new Game(engine.canvas.width, engine.canvas.height);
-
-animate = window.requestAnimationFrame ||
-  window.webkitRequestAnimationFrame ||
-  window.mozRequestAnimationFrame ||
-  function(callback) {
-    window.setTimeout(callback, 1000 / this.FPS);
-  };
-
-update = function(keysDown) {
-  game.update(keysDown);
-};
-
-render = function(context) {
-  game.render(context);
-};
+engine.register(game);
 
 step = function() {
-  update(engine.keysDown);
-  render(engine.ctx);
-  animate(step);
+  'use strict';
+  engine.update();
+  engine.render();
+  engine.animate(step);
 };
 
-animate(step);
+engine.animate(step);
