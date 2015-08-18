@@ -12,33 +12,8 @@ GameEngine.prototype.init = function() {
   'use strict';
   this.canvas.focus();
   this.ctx = this.canvas.getContext('2d');
-  this.keysDown = {};
-  this.mouse = {
-    x: 0,
-    y: 0,
-    clicked: false
-  };
-
-  this.canvas.addEventListener('keydown', function(e) {
-    this.keysDown[e.keyCode] = true;
-  }.bind(this));
-
-  this.canvas.addEventListener('keyup', function(e) {
-    delete this.keysDown[e.keyCode];
-  }.bind(this));
-
-  this.canvas.addEventListener('mouseover', function(e) {
-    this.mouse.x = e.offsetX;
-    this.mouse.y = e.offsetY;
-  }.bind(this));
-
-  this.canvas.addEventListener('mousedown', function(e) {
-    this.mouse.clicked = true;
-  }.bind(this));
-
-  this.canvas.addEventListener('mouseup', function(e) {
-    this.mouse.clicked = false;
-  }.bind(this));
+  this.inputHandler = new InputHandler();
+  this.inputHandler.register(this.canvas);
 };
 
 GameEngine.prototype.register = function(screen) {
@@ -48,7 +23,7 @@ GameEngine.prototype.register = function(screen) {
 
 GameEngine.prototype.update = function() {
   'use strict';
-  this.screen.update(this.keysDown);
+  this.screen.update(this.inputHandler);
 };
 
 GameEngine.prototype.render = function() {
