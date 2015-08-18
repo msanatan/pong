@@ -4,6 +4,7 @@ Menu = function(title, items, x, y, width, height) {
   'use strict';
   this.title = title;
   this.items = items;
+  this.selectedItem = items[0];
   this.x = x;
   this.y = y;
   this.width = width;
@@ -26,8 +27,13 @@ Menu.prototype.render = function(context) {
 
   // Draw items
   for (i = 0; i < this.items.length; i++) {
-    context.font = 'bold 60px Monaco, Courier New, monospace';
+    if (this.items[i] === this.selectedItem) {
+      context.font = 'bold 80px Monaco, Courier New, monospace';
+    context.fillStyle = '#FFCC33';
+    } else {
+      context.font = 'bold 60px Monaco, Courier New, monospace';
     context.fillStyle = '#FFFFFF';
+    }
     textMeasure = context.measureText(this.items[i]);
     context.fillText(this.items[i], (this.width / 2) -
                      (textMeasure.width / 2), 200 + itemY);
