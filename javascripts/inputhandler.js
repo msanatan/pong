@@ -12,40 +12,6 @@ InputHandler = function() {
   };
 };
 
-InputHandler.prototype.register = function(canvas) {
-  var self;
-  self = this;
-  canvas.addEventListener('keydown', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    self.keysDown[e.keyCode] = true;
-  });
-
-  canvas.addEventListener('keyup', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    self.keysDown[e.keyCode] = false;
-    self.lastKey = e.keyCode;
-  });
-
-  canvas.addEventListener('mouseover', function(e) {
-    self.mouse.x = e.offsetX;
-    self.mouse.y = e.offsetY;
-  });
-
-  canvas.addEventListener('mousedown', function(e) {
-    self.mouse.down = true;
-  });
-
-  canvas.addEventListener('click', function(e) {
-    self.mouse.clicked = true;
-  });
-
-  canvas.addEventListener('mouseup', function(e) {
-    self.mouse.down = false;
-  });
-};
-
 /* Useful key abstractions courtesy:
 http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
 */
@@ -116,3 +82,41 @@ InputHandler.prototype.KEY = {
     InputHandler.prototype.KEY['F' + (i - 111)] = i;
   }
 })();
+
+InputHandler.prototype.register = function(canvas) {
+  var self;
+  self = this;
+  canvas.addEventListener('keydown', function(e) {
+    if (e.keyCode !== self.KEY.F5 || e.keyCode !== self.KEY.F11) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    self.keysDown[e.keyCode] = true;
+    self.lastKey = e.keyCode;
+  });
+
+  canvas.addEventListener('keyup', function(e) {
+    if (e.keyCode !== self.KEY.F5 || e.keyCode !== self.KEY.F11) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    delete self.keysDown[e.keyCode];
+  });
+
+  canvas.addEventListener('mouseover', function(e) {
+    self.mouse.x = e.offsetX;
+    self.mouse.y = e.offsetY;
+  });
+
+  canvas.addEventListener('mousedown', function(e) {
+    self.mouse.down = true;
+  });
+
+  canvas.addEventListener('click', function(e) {
+    self.mouse.clicked = true;
+  });
+
+  canvas.addEventListener('mouseup', function(e) {
+    self.mouse.down = false;
+  });
+};
