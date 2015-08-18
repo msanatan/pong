@@ -18,19 +18,11 @@ Player.prototype.render = function(context) {
   context.fillText(this.score, (this.canvasWidth / 2) - 80, 80);
 };
 
-Player.prototype.update = function(keysDown) {
-  var key, value;
-  for (key in keysDown) {
-    value = parseInt(key, 10);
-    switch(value) {
-      case 87: //W
-        this.paddle.move(0, -5, this.canvasHeight);
-        break;
-      case 83: //S
-        this.paddle.move(0, 5, this.canvasHeight);
-        break;
-      default:
-        break;
-    }
+Player.prototype.update = function(inputHandler) {
+  if (inputHandler.keysDown[inputHandler.KEY.W]) {
+    this.paddle.move(0, -5, this.canvasHeight);
+  }
+  else if(inputHandler.keysDown[inputHandler.KEY.S]) {
+    this.paddle.move(0, 5, this.canvasHeight);
   }
 };

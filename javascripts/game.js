@@ -55,19 +55,16 @@ Game.prototype.checkCollision = function() {
   }
 };
 
-Game.prototype.update = function(keysDown) {
+Game.prototype.update = function(inputHandler) {
   'use strict';
-  var key, value;
-  for (key in keysDown) {
-    value = parseInt(key, 10);
-    if (value === 27) {
-      this.pause = !this.pause;
-    }
+  if (inputHandler.keysDown[inputHandler.KEY.ESC]) {
+    this.pause = !this.pause;
   }
+
   if (!this.pause) {
     this.ball.update();
     this.checkCollision();
-    this.player.update(keysDown);
+    this.player.update(inputHandler);
     this.computer.update(this.computer, this.ball);
   }
 };
