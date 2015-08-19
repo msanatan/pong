@@ -5,6 +5,7 @@ Game = function(options) {
   var baseSpeed, difficulty, ball, playerWidth, playerHeight, player1, player2;
   this.width = options.width || 1280;
   this.height = options.height || 640;
+  this.twoPlayer = options.twoPlayer;
 
   playerWidth = options.players.width || 10;
   playerHeight = options.players.height || 100;
@@ -16,13 +17,15 @@ Game = function(options) {
       y: this.height / 2 - (playerHeight / 2),
       width: playerWidth,
       height: playerHeight
+    },
+    keys: {
+      UP: 'W',
+      DOWN: 'S'
     }
   };
   this.player1 = new Player(player1);
-  if (!options.twoPlayer) {
-    baseSpeed = options.baseSpeed || 5;
-    difficulty = options.difficulty || 'easy';
-    player2 = {
+
+  player2 = {
       canvasWidth: this.width,
       canvasHeight: this.height,
       paddle : {
@@ -30,13 +33,20 @@ Game = function(options) {
         y: this.height / 2 - (playerHeight / 2),
         width: playerWidth,
         height: playerHeight
-      },
-      baseSpeed: baseSpeed,
-      difficulty: difficulty
+      }
     };
+  if (!this.twoPlayer) {
+    baseSpeed = options.baseSpeed || 5;
+    difficulty = options.difficulty || 'easy';
+    player2.baseSpeed = baseSpeed;
+    player2.difficulty = difficulty;
     this.player2 = new Computer(player2);
   } else {
-    this.player2 = new Player(this.width, this.height);
+    player2.keys = {
+      UP: 'UP',
+      DOWN: 'DOWN'
+    };
+    this.player2 = new Player(player2);
   }
 
   ball = options.ball ||
@@ -99,7 +109,11 @@ Game.prototype.update = function(inputHandler) {
     this.ball.update();
     this.checkCollision();
     this.player1.update(inputHandler);
-    this.player2.update(this.player2, this.ball);
+    if (this.twoPlayer) {
+      this.player2.update(inputHandler);
+    } else {
+      this.player2.update(this.ball);
+    }
   }
 };
 
