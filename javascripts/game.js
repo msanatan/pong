@@ -1,13 +1,25 @@
 var Game;
 
-Game = function(width, height) {
+Game = function(options) {
   'use strict';
-  this.width = width;
-  this.height = height;
-  this.ai = new AI(5);
-  this.player = new Player(width, height);
-  this.computer = new Computer(width, height, this.ai);
-  this.ball = new Ball(width / 2, height / 2, 10);
+  var baseSpeed, difficulty, ball;
+  this.width = options.width || 1280;
+  this.height = options.height || 640;
+
+  this.player1 = new Player(this.width, this.height);
+  console.log(options.twoPlayer);
+  if (!options.twoPlayer) {
+    baseSpeed = options.baseSpeed || 5;
+    this.ai = new AI(baseSpeed);
+    difficulty = options.difficulty || 'easy';
+    this.player2 = new Computer(this.width, this.height, this.ai);
+  } else {
+    this.player2 = new Player(this.width, this.height);
+  }
+
+  ball = options.ball ||
+    {x: this.width / 2, y: this.height / 2};
+  this.ball = new Ball(ball);
   this.pause = false;
 };
 
@@ -16,11 +28,11 @@ Game.prototype.checkCollision = function() {
   //Determine if point was scored
   if (this.ball.x < 0 || this.ball.x > this.width) {
     if (this.ball.x < 0) {
-      this.computer.score += 1;
+      this.player2.score += 1;
       this.ball.xSpeed = -3;
     }
     else if (this.ball.x > this.width) {
-      this.player.score += 1;
+      this.player1.score += 1;
       this.ball.xSpeed = 3;
     }
 
@@ -39,19 +51,19 @@ Game.prototype.checkCollision = function() {
   }
 
   // Determine if ball hits player or computer
-  if ((this.ball.x <= this.player.paddle.x + this.player.paddle.width) &&
-      (this.ball.y <= this.player.paddle.y + this.player.paddle.height &&
-        this.ball.y >= this.player.paddle.y)) {
+  if ((this.ball.x <= this.player1.paddle.x + this.player1.paddle.width) &&
+      (this.ball.y <= this.player1.paddle.y + this.player1.paddle.height &&
+        this.ball.y >= this.player1.paddle.y)) {
     this.ball.xSpeed = -(this.ball.xSpeed - 0.5);
     this.ball.x += this.ball.xSpeed;
-    this.ball.ySpeed += this.player.paddle.ySpeed / 2;
+    this.ball.ySpeed += this.player1.paddle.ySpeed / 2;
   }
-  else if ((this.ball.x + this.ball.radius >= this.computer.paddle.x) &&
-           (this.ball.y <= this.computer.paddle.y + this.computer.paddle.height &&
-              this.ball.y >= this.computer.paddle.y)) {
+  else if ((this.ball.x + this.ball.radius >= this.player2.paddle.x) &&
+           (this.ball.y <= this.player2.paddle.y + this.player2.paddle.height &&
+              this.ball.y >= this.player2.paddle.y)) {
     this.ball.xSpeed = -(this.ball.xSpeed + 0.5);
     this.ball.x += this.ball.xSpeed;
-    this.ball.ySpeed += this.computer.paddle.ySpeed / 2;
+    this.ball.ySpeed += this.player2.paddle.ySpeed / 2;
   }
 };
 
@@ -64,8 +76,8 @@ Game.prototype.update = function(inputHandler) {
   if (!this.pause) {
     this.ball.update();
     this.checkCollision();
-    this.player.update(inputHandler);
-    this.computer.update(this.computer, this.ball);
+    this.player1.update(inputHandler);
+    this.player2.update(this.player2, this.ball);
   }
 };
 
@@ -89,7 +101,7 @@ Game.prototype.render = function(context) {
     context.fillText('Paused', (this.width / 2) - (textMeasure / 2), this.height / 2);
   }
 
-  this.player.render(context);
-  this.computer.render(context);
+  this.player1.render(context);
+  this.player2.render(context);
   this.ball.render(context);
 };
