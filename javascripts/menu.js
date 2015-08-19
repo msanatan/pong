@@ -63,6 +63,15 @@ Menu.prototype.update = function(inputHandler) {
         players : {}
       };
       this.callback(new Game(game));
+    } else if (this.selectedItem === 1 && inputHandler.keysDown[inputHandler.KEY.RTN]) {
+      game = {
+        width: this.width,
+        height: this.height,
+        baseSpeed: 5,
+        twoPlayer: true,
+        players : {}
+      };
+      this.callback(new Game(game));
     }
   }
 };
