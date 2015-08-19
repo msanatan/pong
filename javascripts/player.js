@@ -11,6 +11,7 @@ Player = function(options) {
     height: options.paddle.height || 100
   };
   this.paddle = new Paddle(paddle);
+  this.keys = options.keys || {UP: 'I', DOWN: 'J'};
   this.score = 0;
   this.colour = options.colour || '#FFFFFF';
 };
@@ -25,10 +26,10 @@ Player.prototype.render = function(context) {
 };
 
 Player.prototype.update = function(inputHandler) {
-  if (inputHandler.keysDown[inputHandler.KEY.W]) {
+  if (inputHandler.keysDown[inputHandler.KEY[this.keys.UP]]) {
     this.paddle.move(0, -5, this.canvasHeight);
   }
-  else if(inputHandler.keysDown[inputHandler.KEY.S]) {
+  else if(inputHandler.keysDown[inputHandler.KEY[this.keys.DOWN]]) {
     this.paddle.move(0, 5, this.canvasHeight);
   }
 };
