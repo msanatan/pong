@@ -2,12 +2,23 @@ var Game;
 
 Game = function(options) {
   'use strict';
-  var baseSpeed, difficulty, ball;
+  var baseSpeed, difficulty, ball, playerWidth, playerHeight, player1, player2;
   this.width = options.width || 1280;
   this.height = options.height || 640;
 
-  this.player1 = new Player(this.width, this.height);
-  console.log(options.twoPlayer);
+  playerWidth = options.players.width || 10;
+  playerHeight = options.players.height || 100;
+  player1 = {
+    canvasWidth: this.width,
+    canvasHeight: this.height,
+    paddle : {
+      x: 10,
+      y: this.height / 2 - (playerHeight / 2),
+      width: playerWidth,
+      height: playerHeight
+    }
+  };
+  this.player1 = new Player(player1);
   if (!options.twoPlayer) {
     baseSpeed = options.baseSpeed || 5;
     this.ai = new AI(baseSpeed);
