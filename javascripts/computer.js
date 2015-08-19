@@ -26,7 +26,7 @@ Computer.prototype.render = function(context) {
   context.fillText(this.score, (this.canvasWidth / 2) + 40, 80);
 };
 
-Computer.prototype.update = function(player, ball) {
+Computer.prototype.update = function(ball) {
   var newY, environment;
   environment = {
     ball: ball,
