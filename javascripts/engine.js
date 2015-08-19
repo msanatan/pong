@@ -39,6 +39,18 @@ GameEngine.prototype.animate = (window.requestAnimationFrame ||
     window.setTimeout(callback, 1000 / this.FPS);
   }).bind(this);
 
+GameEngine.prototype.stop = function() {
+  this.screen = null;
+  this.animate(function() {});
+};
+
+GameEngine.prototype.switchScreens = function(newScreen) {
+  this.stop();
+  this.inputHandler.reset();
+  this.register(newScreen);
+  this.animate.bind(this, step);
+};
+
 WIDTH = window.innerWidth;
 HEIGHT = window.innerHeight;
 FPS = 60;
@@ -46,7 +58,7 @@ engine = new GameEngine('game', WIDTH, HEIGHT, FPS);
 engine.init();
 title = 'Yet Another Pong Clone';
 mainMenuItems = ['1P', '2P', 'Settings'];
-menu = new Menu(title, mainMenuItems, 0, 0, engine.canvas.width, engine.canvas.height);
+menu = new Menu(title, mainMenuItems, 0, 0, engine.canvas.width, engine.canvas.height, engine.switchScreens.bind(engine));
 engine.register(menu);
 
 step = function() {
