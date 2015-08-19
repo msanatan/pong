@@ -1,20 +1,20 @@
 var Computer;
 
-Computer = function(canvasWidth, canvasHeight, ai) {
+Computer = function(options) {
   var playerWidth, playerHeight, paddle;
-  playerWidth = 10;
-  playerHeight = 100;
-  this.canvasWidth = canvasWidth;
-  this.canvasHeight = canvasHeight;
-  this.ai = ai;
+  this.canvasWidth = options.canvasWidth || 1280;
+  this.canvasHeight = options.canvasHeight || 640;
+  this.difficulty = options.difficulty;
+  this.ai = new AI(options.baseSpeed);
   paddle = {
-    x: this.canvasWidth - 10 - playerWidth,
-    y: this.canvasHeight / 2 - (playerHeight / 2),
-    width: playerWidth,
-    height: playerHeight
-  }
+    x: options.paddle.x || this.canvasWidth - 10 - options.paddle.width,
+    y: options.paddle.y || this.canvasHeight / 2 - (options.paddle.height / 2),
+    width: options.paddle.width || 10,
+    height: options.paddle.height || 100
+  };
   this.paddle = new Paddle(paddle);
   this.score = 0;
+  this.colour = options.colour || '#FFFFFF';
 };
 
 Computer.prototype.render = function(context) {
@@ -22,12 +22,16 @@ Computer.prototype.render = function(context) {
 
   // Print score on screen
   context.font = 'bold 80px Helvetica, Verdana, san-serif';
-  context.fillStyle = '#FFFFFF';
+  context.fillStyle = this.colour;
   context.fillText(this.score, (this.canvasWidth / 2) + 40, 80);
 };
 
 Computer.prototype.update = function(player, ball) {
-  var newY;
-  newY = this.ai.easy(player, ball);
+  var newY, environment;
+  environment = {
+    ball: ball,
+    player: this
+  };
+  newY = this.ai[this.difficulty](environment);
   this.paddle.move(0, newY, this.canvasHeight);
 };
