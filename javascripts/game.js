@@ -21,6 +21,10 @@ Game = function(options) {
     keys: {
       UP: 'W',
       DOWN: 'S'
+    },
+    score: {
+      x: (this.width / 2) - 100,
+      y: 80
     }
   };
   this.player1 = new Player(player1);
@@ -33,6 +37,10 @@ Game = function(options) {
         y: this.height / 2 - (playerHeight / 2),
         width: playerWidth,
         height: playerHeight
+      },
+      score: {
+        x: (this.width / 2) + 50,
+        y: 80
       }
     };
   if (!this.twoPlayer) {
