@@ -21,9 +21,20 @@ Game = function(options) {
   this.player1 = new Player(player1);
   if (!options.twoPlayer) {
     baseSpeed = options.baseSpeed || 5;
-    this.ai = new AI(baseSpeed);
     difficulty = options.difficulty || 'easy';
-    this.player2 = new Computer(this.width, this.height, this.ai);
+    player2 = {
+      canvasWidth: this.width,
+      canvasHeight: this.height,
+      paddle : {
+        x: this.width - 10 - playerWidth,
+        y: this.height / 2 - (playerHeight / 2),
+        width: playerWidth,
+        height: playerHeight
+      },
+      baseSpeed: baseSpeed,
+      difficulty: difficulty
+    };
+    this.player2 = new Computer(player2);
   } else {
     this.player2 = new Player(this.width, this.height);
   }
