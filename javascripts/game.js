@@ -57,7 +57,7 @@ Game.prototype.checkCollision = function() {
 
 Game.prototype.update = function(inputHandler) {
   'use strict';
-  if (inputHandler.keysDown[inputHandler.KEY.ESC]) {
+  if (inputHandler.pressed && inputHandler.keysDown[inputHandler.KEY.ESC]) {
     this.pause = !this.pause;
   }
 
