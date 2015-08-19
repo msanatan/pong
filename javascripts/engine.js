@@ -41,7 +41,7 @@ GameEngine.prototype.animate = (window.requestAnimationFrame ||
 
 GameEngine.prototype.stop = function() {
   this.screen = null;
-  this.animate(function() {});
+  this.animate.bind(this, function() {});
 };
 
 GameEngine.prototype.switchScreens = function(newScreen) {
