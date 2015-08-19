@@ -128,3 +128,16 @@ InputHandler.prototype.update = function() {
   this.pressed =  keyDown !== this.lastKey;
   this.lastKey = this.keysDown[keys[0]];
 };
+
+InputHandler.prototype.reset = function() {
+  this.keysDown = {};
+  this.lastKey = null;
+  this.mouse = {};
+  this.mouse = {
+    x: 0,
+    y: 0,
+    clicked: false,
+    down: false
+  };
+  this.pressed = false;
+};
