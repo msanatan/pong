@@ -44,6 +44,7 @@ Menu.prototype.render = function(context) {
 };
 
 Menu.prototype.update = function(inputHandler) {
+  var game;
   if (inputHandler.pressed) {
     if (inputHandler.keysDown[inputHandler.KEY.UP] || inputHandler.keysDown[inputHandler.KEY.W]) {
       if (this.selectedItem > 0) {
@@ -54,7 +55,13 @@ Menu.prototype.update = function(inputHandler) {
         this.selectedItem += 1;
       }
     } else if (this.selectedItem === 0 && inputHandler.keysDown[inputHandler.KEY.RTN]) {
-      this.callback(new Game(this.width, this.height));
+      game = {
+        width: this.width,
+        height: this.height,
+        baseSpeed: 5,
+        twoPlayer: false
+      };
+      this.callback(new Game(game));
     }
   }
 };
