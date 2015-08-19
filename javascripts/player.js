@@ -1,11 +1,17 @@
 var Player;
 
 Player = function(canvasWidth, canvasHeight) {
-  var playerHeight = 100;
+  var playerWidth, playerHeight, paddle;
+  playerHeight = 100;
   this.canvasWidth = canvasWidth;
   this.canvasHeight = canvasHeight;
-  this.paddle = new Paddle(10, this.canvasHeight / 2 - (playerHeight / 2), 10,
-                           playerHeight);
+  paddle = {
+    x: 10,
+    y: this.canvasHeight / 2 - (playerHeight / 2),
+    width: 10,
+    height: playerHeight
+  };
+  this.paddle = new Paddle(paddle);
   this.score = 0;
 };
 

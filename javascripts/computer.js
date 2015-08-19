@@ -1,15 +1,19 @@
 var Computer;
 
 Computer = function(canvasWidth, canvasHeight, ai) {
-  var playerWidth, playerHeight;
+  var playerWidth, playerHeight, paddle;
   playerWidth = 10;
   playerHeight = 100;
   this.canvasWidth = canvasWidth;
   this.canvasHeight = canvasHeight;
   this.ai = ai;
-  this.paddle = new Paddle(this.canvasWidth - 10 - playerWidth,
-                           this.canvasHeight / 2 - (playerHeight / 2),
-                           playerWidth, playerHeight);
+  paddle = {
+    x: this.canvasWidth - 10 - playerWidth,
+    y: this.canvasHeight / 2 - (playerHeight / 2),
+    width: playerWidth,
+    height: playerHeight
+  }
+  this.paddle = new Paddle(paddle);
   this.score = 0;
 };
 
