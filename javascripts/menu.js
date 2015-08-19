@@ -59,7 +59,8 @@ Menu.prototype.update = function(inputHandler) {
         width: this.width,
         height: this.height,
         baseSpeed: 5,
-        twoPlayer: false
+        twoPlayer: false,
+        players : {}
       };
       this.callback(new Game(game));
     }
