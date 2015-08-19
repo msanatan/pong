@@ -23,6 +23,7 @@ GameEngine.prototype.register = function(screen) {
 
 GameEngine.prototype.update = function() {
   'use strict';
+  this.inputHandler.update();
   this.screen.update(this.inputHandler);
 };
 
