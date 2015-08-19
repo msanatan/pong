@@ -1,6 +1,6 @@
 var Menu;
 
-Menu = function(title, items, x, y, width, height) {
+Menu = function(title, items, x, y, width, height, callback) {
   'use strict';
   this.title = title;
   this.items = items;
@@ -10,6 +10,7 @@ Menu = function(title, items, x, y, width, height) {
   this.width = width;
   this.height = height;
   this.textSize = 50;
+  this.callback = callback;
 };
 
 Menu.prototype.render = function(context) {
@@ -52,8 +53,8 @@ Menu.prototype.update = function(inputHandler) {
       if (this.selectedItem < this.items.length - 1) {
         this.selectedItem += 1;
       }
-    } else if (inputHandler.keysDown[inputHandler.KEY.RTN]) {
-      //TODO: Use display manager to switch to game
+    } else if (this.selectedItem === 0 && inputHandler.keysDown[inputHandler.KEY.RTN]) {
+      this.callback(new Game(this.width, this.height));
     }
   }
 };
