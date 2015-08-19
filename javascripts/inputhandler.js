@@ -10,6 +10,7 @@ InputHandler = function() {
     clicked: false,
     down: false
   };
+  this.pressed = false;
 };
 
 /* Useful key abstractions courtesy:
@@ -92,7 +93,6 @@ InputHandler.prototype.register = function(canvas) {
       e.stopPropagation();
     }
     self.keysDown[e.keyCode] = true;
-    self.lastKey = e.keyCode;
   });
 
   canvas.addEventListener('keyup', function(e) {
@@ -119,4 +119,12 @@ InputHandler.prototype.register = function(canvas) {
   canvas.addEventListener('mouseup', function(e) {
     self.mouse.down = false;
   });
+};
+
+InputHandler.prototype.update = function() {
+  var keys, keyDown;
+  keys = Object.keys(this.keysDown);
+  keyDown = keys.length > 0 ? this.keysDown[keys[0]] : null;
+  this.pressed =  keyDown !== this.lastKey;
+  this.lastKey = this.keysDown[keys[0]];
 };
