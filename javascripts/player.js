@@ -13,6 +13,8 @@ Player = function(options) {
   this.paddle = new Paddle(paddle);
   this.keys = options.keys || {UP: 'I', DOWN: 'J'};
   this.score = 0;
+  this.scoreX = options.score.x || this.canvasWidth / 2;
+  this.scoreY = options.score.y || this.canvasWidth / 10;
   this.colour = options.colour || '#FFFFFF';
 };
 
@@ -22,7 +24,7 @@ Player.prototype.render = function(context) {
   // Print score on screen
   context.font = 'bold 80px Helvetica, Verdana, san-serif';
   context.fillStyle = this.colour;
-  context.fillText(this.score, (this.canvasWidth / 2) - 80, 80);
+  context.fillText(this.score, this.scoreX, this.scoreY);
 };
 
 Player.prototype.update = function(inputHandler) {
