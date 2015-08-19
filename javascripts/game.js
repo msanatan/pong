@@ -81,6 +81,14 @@ Game.prototype.render = function(context) {
   context.strokeStyle = '#FFFFFF';
   context.stroke();
 
+  if (this.pause) {
+    var textMeasure;
+    context.font = 'bold 100px Helvetica, Verdana, san-serif';
+    context.fillStyle = '#FFDD88';
+    textMeasure = context.measureText('Paused').width;
+    context.fillText('Paused', (this.width / 2) - (textMeasure / 2), this.height / 2);
+  }
+
   this.player.render(context);
   this.computer.render(context);
   this.ball.render(context);
