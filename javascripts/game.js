@@ -2,7 +2,7 @@ var Game;
 
 Game = function(options) {
   'use strict';
-  var baseSpeed, difficulty, ball, playerWidth, playerHeight, player1, player2;
+  var ball, playerWidth, playerHeight, player1, player2;
   this.width = options.width || 1280;
   this.height = options.height || 640;
   this.twoPlayer = options.twoPlayer;
@@ -44,10 +44,8 @@ Game = function(options) {
       }
     };
   if (!this.twoPlayer) {
-    baseSpeed = options.baseSpeed || 5;
-    difficulty = options.difficulty || 'easy';
-    player2.baseSpeed = baseSpeed;
-    player2.difficulty = difficulty;
+    player2.baseSpeed = options.baseSpeed || 5;
+    player2.difficulty = options.difficulty || 'easy';
     this.player2 = new Computer(player2);
   } else {
     player2.keys = {
@@ -127,6 +125,7 @@ Game.prototype.update = function(inputHandler) {
 
 Game.prototype.render = function(context) {
   'use strict';
+  var textMeasure;
   context.fillStyle = '#000000';
   context.fillRect(0, 0, this.width, this.height);
   // Draw separating line
@@ -138,8 +137,7 @@ Game.prototype.render = function(context) {
   context.stroke();
 
   if (this.pause) {
-    var textMeasure;
-    context.font = 'bold 100px Helvetica, Verdana, san-serif';
+    context.font = 'bold 120px Helvetica, Verdana, san-serif';
     context.fillStyle = '#FFDD88';
     textMeasure = context.measureText('Paused').width;
     context.fillText('Paused', (this.width / 2) - (textMeasure / 2), this.height / 2);
