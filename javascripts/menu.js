@@ -1,16 +1,19 @@
 var Menu;
 
-Menu = function(title, items, x, y, width, height, callback) {
+Menu = function(options) {
   'use strict';
-  this.title = title;
-  this.items = items;
+  this.title = options.title;
+  this.items = options.items;
   this.selectedItem = 0;
-  this.x = x;
-  this.y = y;
-  this.width = width;
-  this.height = height;
-  this.textSize = 50;
-  this.callback = callback;
+  this.selectedItemStyle = options.selected;
+  this.x = options.x;
+  this.y = options.y;
+  this.width = options.width;
+  this.height = options.height;
+  this.backgroundColour = options.backgroundColour;
+  this.itemSeparator = options.itemSeparator;
+  this.callback = options.callback;
+  console.log(options);
 };
 
 Menu.prototype.render = function(context) {
@@ -18,28 +21,28 @@ Menu.prototype.render = function(context) {
   var i, textMeasure, itemY;
   itemY = 50;
   // Background
-  context.fillStyle = '#000000';
-  context.fillRect(0, 0, this.width, this.height);
+  context.fillStyle = this.backgroundColour;
+  context.fillRect(this.x, this.y, this.width, this.height);
 
   // Draw title
-  context.font = 'bold 65px Monaco, Courier New, monospace';
-  context.fillStyle = '#FFFFFF';
-  textMeasure = context.measureText(this.title);
-  context.fillText(this.title, (this.width / 2) - (textMeasure.width / 2), 100);
+  context.font = this.title.font;
+  context.fillStyle = this.title.colour;
+  textMeasure = context.measureText(this.title.text);
+  context.fillText(this.title.text, (this.width / 2) - (textMeasure.width / 2), 100);
 
   // Draw items
   for (i = 0; i < this.items.length; i++) {
     if (i === this.selectedItem) {
-      context.font = 'bold 55px Monaco, Courier New, monospace';
-    context.fillStyle = '#FFCC33';
+      context.font = this.selectedItemStyle.font;
+    context.fillStyle = this.selectedItemStyle.colour;
     } else {
-      context.font = 'bold 45px Monaco, Courier New, monospace';
-    context.fillStyle = '#FFFFFF';
+      context.font = this.items[i].font;
+    context.fillStyle = this.items[i].colour;
     }
-    textMeasure = context.measureText(this.items[i]);
-    context.fillText(this.items[i], (this.width / 2) -
+    textMeasure = context.measureText(this.items[i].text);
+    context.fillText(this.items[i].text, (this.width / 2) -
                      (textMeasure.width / 2), 200 + itemY);
-    itemY += 100;
+    itemY += this.itemSeparator;
   }
 };
 
@@ -54,24 +57,8 @@ Menu.prototype.update = function(inputHandler) {
       if (this.selectedItem < this.items.length - 1) {
         this.selectedItem += 1;
       }
-    } else if (this.selectedItem === 0 && inputHandler.keysDown[inputHandler.KEY.RTN]) {
-      game = {
-        width: this.width,
-        height: this.height,
-        baseSpeed: 5,
-        twoPlayer: false,
-        players : {}
-      };
-      this.callback(new Game(game));
-    } else if (this.selectedItem === 1 && inputHandler.keysDown[inputHandler.KEY.RTN]) {
-      game = {
-        width: this.width,
-        height: this.height,
-        baseSpeed: 5,
-        twoPlayer: true,
-        players : {}
-      };
-      this.callback(new Game(game));
+    } else if (inputHandler.keysDown[inputHandler.KEY.RTN]) {
+      this.callback(this.items[this.selectedItem].newScreen);
     }
   }
 };
