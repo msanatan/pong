@@ -12,12 +12,11 @@ function MainMenu(options) {
         text: '1P',
         font: 'bold 45px Monaco, Courier New, monospace',
         colour: '#FFFFFF',
-        newScreen: new Game({
+        newScreen: OnePlayerMenu({
           width: options.width,
           height: options.height,
-          baseSpeed: 5,
-          twoPlayer: false,
-          players : {}
+          baseSpeed: options.baseSpeed,
+          callback: options.callback
         })
       },
       {
