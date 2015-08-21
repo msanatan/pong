@@ -1,4 +1,4 @@
-var GameEngine, WIDTH, HEIGHT, FPS, engine, menu, title, mainMenuItems, step;
+var GameEngine, WIDTH, HEIGHT, FPS, engine, mainMenu, step;
 
 GameEngine = function(canvasID, width, height, FPS) {
   'use strict';
@@ -56,10 +56,12 @@ HEIGHT = window.innerHeight;
 FPS = 60;
 engine = new GameEngine('game', WIDTH, HEIGHT, FPS);
 engine.init();
-title = 'Yet Another Pong Clone';
-mainMenuItems = ['1P', '2P', 'Settings'];
-menu = new Menu(title, mainMenuItems, 0, 0, engine.canvas.width, engine.canvas.height, engine.switchScreens.bind(engine));
-engine.register(menu);
+mainMenu = MainMenu({
+  width: WIDTH,
+  height: HEIGHT,
+  callback: engine.switchScreens.bind(engine),
+});
+engine.register(mainMenu);
 
 step = function() {
   'use strict';
