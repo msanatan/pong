@@ -59,7 +59,7 @@ engine.init();
 mainMenu = MainMenu({
   width: WIDTH,
   height: HEIGHT,
-  callback: engine.switchScreens.bind(engine),
+  callback: engine.switchScreens.bind(engine)
 });
 engine.register(mainMenu);
 

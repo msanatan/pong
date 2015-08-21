@@ -13,7 +13,6 @@ Menu = function(options) {
   this.backgroundColour = options.backgroundColour;
   this.itemSeparator = options.itemSeparator;
   this.callback = options.callback;
-  console.log(options);
 };
 
 Menu.prototype.render = function(context) {
