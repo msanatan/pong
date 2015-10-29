@@ -33,6 +33,7 @@ Engine.prototype.render = function() {
 };
 
 Engine.prototype.stop = function() {
+  delete this.screen;
   this.screen = null;
 };
 
@@ -53,11 +54,10 @@ HEIGHT = window.innerHeight;
 FPS = 60;
 engine = new Engine('game', WIDTH, HEIGHT, FPS);
 engine.init();
-mainMenu = MainMenu({
+mainMenu = new MainMenu({
   width: WIDTH,
-  height: HEIGHT,
-  callback: engine.switchScreens.bind(engine)
-});
+  height: HEIGHT
+}, engine);
 engine.register(mainMenu);
 
 
