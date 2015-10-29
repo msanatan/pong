@@ -12,7 +12,7 @@ Menu = function(options) {
   this.height = options.height;
   this.backgroundColour = options.backgroundColour;
   this.itemSeparator = options.itemSeparator;
-  this.callback = options.callback;
+  this.callback = options.callback || function() {};
 };
 
 Menu.prototype.render = function(context) {
@@ -57,7 +57,7 @@ Menu.prototype.update = function(inputHandler) {
         this.selectedItem += 1;
       }
     } else if (inputHandler.keysDown[inputHandler.KEY.RTN]) {
-      this.callback(this.items[this.selectedItem].newScreen);
+      this.callback();
     }
   }
 };
