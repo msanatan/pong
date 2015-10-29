@@ -1,4 +1,4 @@
-function OnePlayerMenu(options) {
+var OnePlayerMenu = function(options, engine) {
   'use strict';
   var menu;
   menu = {
@@ -7,32 +7,32 @@ function OnePlayerMenu(options) {
       font: 'bold 65px Monaco, Courier New, monospace',
       colour: '#FFFFFF'
     },
-      items: [
+    items: [
       {
         text: 'Easy',
         font: 'bold 45px Monaco, Courier New, monospace',
         colour: '#FFFFFF',
-        newScreen: new Game({
+        newScreen: {
           width: options.width,
           height: options.height,
           baseSpeed: options.baseSpeed,
           twoPlayer: false,
           players : {},
           difficulty: 'easy'
-        })
+        }
       },
       {
         text: 'Medium',
         font: 'bold 45px Monaco, Courier New, monospace',
         colour: '#FFFFFF',
-        newScreen: new Game({
+        newScreen: {
           width: options.width,
           height: options.height,
           baseSpeed: options.baseSpeed,
           twoPlayer: false,
           players : {},
           difficulty: 'medium'
-        })
+        }
       }
     ],
     selected: {
@@ -45,8 +45,11 @@ function OnePlayerMenu(options) {
     height: options.height || 640,
     backgroundColour: '#000000',
     itemSeparator: 100,
-    callback: options.callback || function() {}
   };
-
-  return new Menu(menu);
+  Menu.call(this, menu);
+  this.callback = function() {
+    engine.switchScreens(new Game(this.items[this.selectedItem].newScreen));
+  };
 };
+OnePlayerMenu.prototype = Object.create(Menu.prototype);
+OnePlayerMenu.constructor = Menu;

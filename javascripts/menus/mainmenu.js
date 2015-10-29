@@ -1,4 +1,4 @@
-function MainMenu(options) {
+var MainMenu = function(options, engine) {
   'use strict';
   var menu;
   menu = {
@@ -7,29 +7,29 @@ function MainMenu(options) {
       font: 'bold 65px Monaco, Courier New, monospace',
       colour: '#FFFFFF'
     },
-      items: [
+    items: [
       {
         text: '1P',
         font: 'bold 45px Monaco, Courier New, monospace',
         colour: '#FFFFFF',
-        newScreen: OnePlayerMenu({
+        newScreen: {
           width: options.width,
           height: options.height,
           baseSpeed: options.baseSpeed,
           callback: options.callback
-        })
+        }
       },
       {
         text: '2P',
         font: 'bold 45px Monaco, Courier New, monospace',
         colour: '#FFFFFF',
-        newScreen: new Game({
+        newScreen: {
           width: options.width,
           height: options.height,
           baseSpeed: 5,
           twoPlayer: true,
           players : {}
-        })
+        }
       },
       {
         text: 'Settings',
@@ -48,8 +48,16 @@ function MainMenu(options) {
     height: options.height || 640,
     backgroundColour: '#000000',
     itemSeparator: 100,
-    callback: options.callback || function() {}
   };
-
-  return new Menu(menu);
+  Menu.call(this, menu);
+  this.callback = function() {
+    if (this.selectedItem === 0) {
+      engine.switchScreens(new OnePlayerMenu(this.items[this.selectedItem].newScreen, engine));
+    }
+    else if (this.selectedItem === 1) {
+      engine.switchScreens(new Game(this.items[this.selectedItem].newScreen));
+    }
+  };
 };
+MainMenu.prototype = Object.create(Menu.prototype);
+MainMenu.constructor = Menu;
