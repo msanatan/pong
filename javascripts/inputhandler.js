@@ -1,6 +1,6 @@
-var InputHandler;
+var Game = Game || {};
 
-InputHandler = function() {
+Game.InputHandler = function() {
   this.keysDown = {};
   this.lastKey = null;
   this.mouse = {};
@@ -16,7 +16,7 @@ InputHandler = function() {
 /* Useful key abstractions courtesy:
 http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
 */
-InputHandler.prototype.KEY = {
+Game.InputHandler.prototype.KEY = {
   'BACK_SPACE': 8,
   'TAB': 9,
   'RTN': 13,
@@ -59,32 +59,32 @@ InputHandler.prototype.KEY = {
 (function addNumPairs() {
   var i;
   for (i = 0; i < 10; i++) {
-    InputHandler.prototype.KEY['' + i] = 48 + i;
+    Game.InputHandler.prototype.KEY['' + i] = 48 + i;
   }
 })();
 
 (function addLetterPairs() {
   var i;
   for (i = 65; i < 91; i++) {
-    InputHandler.prototype.KEY['' + String.fromCharCode(i)] = i;
+    Game.InputHandler.prototype.KEY['' + String.fromCharCode(i)] = i;
   }
 })();
 
 (function addNumPadPairs() {
   var i;
   for (i = 96; i < 106; i++) {
-    InputHandler.prototype.KEY['NUM_PAD_' + (i - 96)] = i;
+    Game.InputHandler.prototype.KEY['NUM_PAD_' + (i - 96)] = i;
   }
 })();
 
 (function addFKeyPairs() {
   var i;
   for (i = 112; i < 124; i++) {
-    InputHandler.prototype.KEY['F' + (i - 111)] = i;
+    Game.InputHandler.prototype.KEY['F' + (i - 111)] = i;
   }
 })();
 
-InputHandler.prototype.register = function(canvas) {
+Game.InputHandler.prototype.register = function(canvas) {
   var self;
   self = this;
   canvas.addEventListener('keydown', function(e) {
@@ -121,7 +121,7 @@ InputHandler.prototype.register = function(canvas) {
   });
 };
 
-InputHandler.prototype.update = function() {
+Game.InputHandler.prototype.update = function() {
   var keys, keyDown;
   keys = Object.keys(this.keysDown);
   keyDown = keys.length > 0 ? this.keysDown[keys[0]] : null;
@@ -129,7 +129,7 @@ InputHandler.prototype.update = function() {
   this.lastKey = this.keysDown[keys[0]];
 };
 
-InputHandler.prototype.reset = function() {
+Game.InputHandler.prototype.reset = function() {
   this.keysDown = {};
   this.lastKey = null;
   this.mouse = {};

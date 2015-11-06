@@ -1,6 +1,6 @@
-var Menu;
+var Game = Game || {};
 
-Menu = function(options) {
+Game.Menu = function(options) {
   'use strict';
   this.title = options.title;
   this.items = options.items;
@@ -15,7 +15,7 @@ Menu = function(options) {
   this.callback = options.callback || function() {};
 };
 
-Menu.prototype.render = function(context) {
+Game.Menu.prototype.render = function(context) {
   'use strict';
   var i, textMeasure, itemY;
   itemY = 50;
@@ -45,7 +45,7 @@ Menu.prototype.render = function(context) {
   }
 };
 
-Menu.prototype.update = function(inputHandler) {
+Game.Menu.prototype.update = function(inputHandler) {
   var game;
   if (inputHandler.pressed) {
     if (inputHandler.keysDown[inputHandler.KEY.UP] || inputHandler.keysDown[inputHandler.KEY.W]) {

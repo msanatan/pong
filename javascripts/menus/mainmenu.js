@@ -1,4 +1,6 @@
-var MainMenu = function(options, engine) {
+var Game = Game || {};
+
+Game.MainMenu = function(options, engine) {
   'use strict';
   var menu;
   menu = {
@@ -49,15 +51,15 @@ var MainMenu = function(options, engine) {
     backgroundColour: '#000000',
     itemSeparator: 100,
   };
-  Menu.call(this, menu);
+  Game.Menu.call(this, menu);
   this.callback = function() {
     if (this.selectedItem === 0) {
-      engine.switchScreens(new OnePlayerMenu(this.items[this.selectedItem].newScreen, engine));
+      engine.switchScreens(new Game.OnePlayerMenu(this.items[this.selectedItem].newScreen, engine));
     }
     else if (this.selectedItem === 1) {
-      engine.switchScreens(new Game(this.items[this.selectedItem].newScreen));
+      engine.switchScreens(new Game.Pong(this.items[this.selectedItem].newScreen));
     }
   };
 };
-MainMenu.prototype = Object.create(Menu.prototype);
-MainMenu.constructor = Menu;
+Game.MainMenu.prototype = Object.create(Game.Menu.prototype);
+Game.MainMenu.constructor = Game.Menu;

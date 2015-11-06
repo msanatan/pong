@@ -1,25 +1,25 @@
-var Computer;
+var Game = Game || {};
 
-Computer = function(options) {
+Game.Computer = function(options) {
   var playerWidth, playerHeight, paddle;
   this.canvasWidth = options.canvasWidth || 1280;
   this.canvasHeight = options.canvasHeight || 640;
   this.difficulty = options.difficulty;
-  this.ai = new AI(options.baseSpeed);
+  this.ai = new Game.AI(options.baseSpeed);
   paddle = {
     x: options.paddle.x || this.canvasWidth - 10 - options.paddle.width,
     y: options.paddle.y || this.canvasHeight / 2 - (options.paddle.height / 2),
     width: options.paddle.width || 10,
     height: options.paddle.height || 100
   };
-  this.paddle = new Paddle(paddle);
+  this.paddle = new Game.Paddle(paddle);
   this.score = 0;
   this.scoreX = options.score.x || this.canvasWidth / 2;
   this.scoreY = options.score.y || this.canvasWidth / 10;
   this.colour = options.colour || '#FFFFFF';
 };
 
-Computer.prototype.render = function(context) {
+Game.Computer.prototype.render = function(context) {
   this.paddle.render(context);
 
   // Print score on screen
@@ -28,7 +28,7 @@ Computer.prototype.render = function(context) {
   context.fillText(this.score, this.scoreX, this.scoreY);
 };
 
-Computer.prototype.update = function(ball) {
+Game.Computer.prototype.update = function(ball) {
   var newY, environment;
   environment = {
     ball: ball,

@@ -1,6 +1,6 @@
-var Game;
+var Game = Game || {};
 
-Game = function(options) {
+Game.Pong = function(options) {
   'use strict';
   var ball, playerWidth, playerHeight, player1, player2;
   this.width = options.width || 1280;
@@ -27,7 +27,7 @@ Game = function(options) {
       y: 80
     }
   };
-  this.player1 = new Player(player1);
+  this.player1 = new Game.Player(player1);
 
   player2 = {
       canvasWidth: this.width,
@@ -46,22 +46,22 @@ Game = function(options) {
   if (!this.twoPlayer) {
     player2.baseSpeed = options.baseSpeed || 5;
     player2.difficulty = options.difficulty || 'easy';
-    this.player2 = new Computer(player2);
+    this.player2 = new Game.Computer(player2);
   } else {
     player2.keys = {
       UP: 'UP',
       DOWN: 'DOWN'
     };
-    this.player2 = new Player(player2);
+    this.player2 = new Game.Player(player2);
   }
 
   ball = options.ball ||
     {x: this.width / 2, y: this.height / 2};
-  this.ball = new Ball(ball);
+  this.ball = new Game.Ball(ball);
   this.pause = false;
 };
 
-Game.prototype.checkCollision = function() {
+Game.Pong.prototype.checkCollision = function() {
   'use strict';
   //Determine if point was scored
   if (this.ball.x < 0 || this.ball.x > this.width) {
@@ -105,7 +105,7 @@ Game.prototype.checkCollision = function() {
   }
 };
 
-Game.prototype.update = function(inputHandler) {
+Game.Pong.prototype.update = function(inputHandler) {
   'use strict';
   if (inputHandler.pressed && inputHandler.keysDown[inputHandler.KEY.ESC]) {
     this.pause = !this.pause;
@@ -123,7 +123,7 @@ Game.prototype.update = function(inputHandler) {
   }
 };
 
-Game.prototype.render = function(context) {
+Game.Pong.prototype.render = function(context) {
   'use strict';
   var textMeasure;
   context.fillStyle = '#000000';

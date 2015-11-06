@@ -1,4 +1,6 @@
-var OnePlayerMenu = function(options, engine) {
+var Game = Game || {};
+
+Game.OnePlayerMenu = function(options, engine) {
   'use strict';
   var menu;
   menu = {
@@ -46,10 +48,10 @@ var OnePlayerMenu = function(options, engine) {
     backgroundColour: '#000000',
     itemSeparator: 100,
   };
-  Menu.call(this, menu);
+  Game.Menu.call(this, menu);
   this.callback = function() {
-    engine.switchScreens(new Game(this.items[this.selectedItem].newScreen));
+    engine.switchScreens(new Game.Pong(this.items[this.selectedItem].newScreen));
   };
 };
-OnePlayerMenu.prototype = Object.create(Menu.prototype);
-OnePlayerMenu.constructor = Menu;
+Game.OnePlayerMenu.prototype = Object.create(Game.Menu.prototype);
+Game.OnePlayerMenu.constructor = Game.Menu;
