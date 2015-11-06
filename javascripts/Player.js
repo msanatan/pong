@@ -28,10 +28,10 @@ Game.Player.prototype.render = function(context) {
 };
 
 Game.Player.prototype.update = function(inputHandler) {
-  if (inputHandler.keysDown[inputHandler.KEY[this.keys.UP]]) {
+  if (inputHandler.isDown(this.keys.UP)) {
     this.paddle.move(0, -5, this.canvasHeight);
   }
-  else if(inputHandler.keysDown[inputHandler.KEY[this.keys.DOWN]]) {
+  else if (inputHandler.isDown(this.keys.DOWN)) {
     this.paddle.move(0, 5, this.canvasHeight);
   }
 };

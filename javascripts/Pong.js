@@ -107,7 +107,7 @@ Game.Pong.prototype.checkCollision = function() {
 
 Game.Pong.prototype.update = function(inputHandler) {
   'use strict';
-  if (inputHandler.pressed && inputHandler.keysDown[inputHandler.KEY.ESC]) {
+  if (inputHandler.pressed && inputHandler.isDown('ESC')) {
     this.pause = !this.pause;
   }
 

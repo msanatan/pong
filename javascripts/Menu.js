@@ -48,15 +48,15 @@ Game.Menu.prototype.render = function(context) {
 Game.Menu.prototype.update = function(inputHandler) {
   var game;
   if (inputHandler.pressed) {
-    if (inputHandler.keysDown[inputHandler.KEY.UP] || inputHandler.keysDown[inputHandler.KEY.W]) {
+    if (inputHandler.isDown('UP') || inputHandler.isDown('W')) {
       if (this.selectedItem > 0) {
         this.selectedItem -= 1;
       }
-  } else if (inputHandler.keysDown[inputHandler.KEY.DOWN] || inputHandler.keysDown[inputHandler.KEY.S]) {
+  } else if (inputHandler.isDown('DOWN') || inputHandler.isDown('S')) {
       if (this.selectedItem < this.items.length - 1) {
         this.selectedItem += 1;
       }
-    } else if (inputHandler.keysDown[inputHandler.KEY.RTN]) {
+    } else if (inputHandler.isDown('RTN')) {
       this.callback();
     }
   }
