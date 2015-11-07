@@ -1,14 +1,13 @@
 var Game = Game || {};
 var WIDTH = window.innerWidth;
 var HEIGHT = window.innerHeight;
-var FPS = 60;
+var FPS = 30;
 var engine = new Game.Engine('game', WIDTH, HEIGHT, FPS);
 engine.init();
-var mainMenu = new Game.MainMenu({
+engine.register(new Game.MainMenu({
   width: WIDTH,
   height: HEIGHT
-}, engine);
-engine.register(mainMenu);
+}, engine));
 
 var animate = (window.requestAnimationFrame ||
   window.webkitRequestAnimationFrame ||
