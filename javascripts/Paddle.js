@@ -27,6 +27,16 @@ Game.Paddle.prototype.move = function(x, y, height) {
   }
 };
 
+Game.Paddle.prototype.getBBox = function() {
+  'use strict';
+  return {
+    x: this.x,
+    y: this.y,
+    width: this.width,
+    height: this.height
+  };
+};
+
 Game.Paddle.prototype.render = function(context) {
   'use strict';
   context.fillStyle = '#FFFFFF';

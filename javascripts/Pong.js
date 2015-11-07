@@ -61,6 +61,17 @@ Game.Pong = function(options) {
   this.pause = false;
 };
 
+Game.Pong.prototype.bboxCollision = function(rect1, rect2) {
+  'use strict';
+  if (rect1.x < rect2.x + rect2.width &&
+      rect1.x + rect1.width > rect2.x &&
+      rect1.y < rect2.y + rect2.height &&
+      rect1.y + rect1.height > rect2.y) {
+    return true;
+  }
+  return false;
+};
+
 Game.Pong.prototype.checkCollision = function() {
   'use strict';
   //Determine if point was scored
@@ -89,16 +100,12 @@ Game.Pong.prototype.checkCollision = function() {
   }
 
   // Determine if ball hits player or computer
-  if ((this.ball.x <= this.player1.paddle.x + this.player1.paddle.width) &&
-      (this.ball.y <= this.player1.paddle.y + this.player1.paddle.height &&
-        this.ball.y >= this.player1.paddle.y)) {
+  if (this.bboxCollision(this.player1.paddle.getBBox(), this.ball.getBBox())) {
     this.ball.xSpeed = -(this.ball.xSpeed - 0.5);
     this.ball.x += this.ball.xSpeed;
     this.ball.ySpeed += this.player1.paddle.ySpeed / 2;
   }
-  else if ((this.ball.x + this.ball.radius >= this.player2.paddle.x) &&
-           (this.ball.y <= this.player2.paddle.y + this.player2.paddle.height &&
-              this.ball.y >= this.player2.paddle.y)) {
+  else if (this.bboxCollision(this.player2.paddle.getBBox(), this.ball.getBBox())) {
     this.ball.xSpeed = -(this.ball.xSpeed + 0.5);
     this.ball.x += this.ball.xSpeed;
     this.ball.ySpeed += this.player2.paddle.ySpeed / 2;

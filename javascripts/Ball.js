@@ -10,6 +10,16 @@ Game.Ball = function(options) {
   this.colour = options.colour || 'skyblue';
 };
 
+Game.Ball.prototype.getBBox = function() {
+  'use strict';
+  return {
+    x: this.x - this.radius,
+    y: this.y - this.radius,
+    width: this.radius * 2,
+    height: this.radius * 2
+  };
+};
+
 Game.Ball.prototype.render = function(context) {
   'use strict';
   context.beginPath();
