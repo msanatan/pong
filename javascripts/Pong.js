@@ -120,13 +120,13 @@ Game.Pong.prototype.update = function(inputHandler) {
 
   if (!this.pause) {
     this.ball.update();
-    this.checkCollision();
     this.player1.update(inputHandler);
     if (this.twoPlayer) {
       this.player2.update(inputHandler);
     } else {
       this.player2.update(this.ball);
     }
+    this.checkCollision();
   }
 };
 
