@@ -35,11 +35,13 @@ Game.Engine.prototype.render = function() {
 };
 
 Game.Engine.prototype.stop = function() {
+  'use strict';
   delete this.screen;
   this.screen = null;
 };
 
 Game.Engine.prototype.switchScreens = function(newScreen) {
+  'use strict';
   this.stop();
   this.inputHandler.reset();
   this.register(newScreen);

@@ -1,6 +1,7 @@
 var Game = Game || {};
 
 Game.AI = function(baseSpeed) {
+  'use strict';
   this.baseSpeed = baseSpeed;
 };
 

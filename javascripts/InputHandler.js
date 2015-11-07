@@ -1,6 +1,7 @@
 var Game = Game || {};
 
 Game.InputHandler = function() {
+  'use strict';
   this.keysDown = {};
   this.lastKey = null;
   this.mouse = {};
@@ -85,6 +86,7 @@ Game.InputHandler.prototype.KEY = {
 })();
 
 Game.InputHandler.prototype.register = function(canvas) {
+  'use strict';
   var self;
   self = this;
   canvas.addEventListener('keydown', function(e) {
@@ -122,6 +124,7 @@ Game.InputHandler.prototype.register = function(canvas) {
 };
 
 Game.InputHandler.prototype.isDown = function(key) {
+  'use strict';
   if (this.keysDown[this.KEY[key]]) {
     return true;
   }
@@ -129,6 +132,7 @@ Game.InputHandler.prototype.isDown = function(key) {
 };
 
 Game.InputHandler.prototype.update = function() {
+  'use strict';
   var keys, keyDown;
   keys = Object.keys(this.keysDown);
   keyDown = keys.length > 0 ? this.keysDown[keys[0]] : null;
@@ -137,6 +141,7 @@ Game.InputHandler.prototype.update = function() {
 };
 
 Game.InputHandler.prototype.reset = function() {
+  'use strict';
   this.keysDown = {};
   this.lastKey = null;
   this.mouse = {};

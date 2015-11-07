@@ -1,6 +1,7 @@
 var Game = Game || {};
 
 Game.Player = function(options) {
+  'use strict';
   var paddle;
   this.canvasWidth = options.canvasWidth || 1280;
   this.canvasHeight = options.canvasHeight || 640;
@@ -19,6 +20,7 @@ Game.Player = function(options) {
 };
 
 Game.Player.prototype.render = function(context) {
+  'use strict';
   this.paddle.render(context);
 
   // Print score on screen
@@ -28,6 +30,7 @@ Game.Player.prototype.render = function(context) {
 };
 
 Game.Player.prototype.update = function(inputHandler) {
+  'use strict';
   if (inputHandler.isDown(this.keys.UP)) {
     this.paddle.move(0, -5, this.canvasHeight);
   }

@@ -46,6 +46,7 @@ Game.Menu.prototype.render = function(context) {
 };
 
 Game.Menu.prototype.update = function(inputHandler) {
+  'use strict';
   var game;
   if (inputHandler.pressed) {
     if (inputHandler.isDown('UP') || inputHandler.isDown('W')) {

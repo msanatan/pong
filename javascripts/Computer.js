@@ -1,6 +1,7 @@
 var Game = Game || {};
 
 Game.Computer = function(options) {
+  'use strict';
   var playerWidth, playerHeight, paddle;
   this.canvasWidth = options.canvasWidth || 1280;
   this.canvasHeight = options.canvasHeight || 640;
@@ -20,6 +21,7 @@ Game.Computer = function(options) {
 };
 
 Game.Computer.prototype.render = function(context) {
+  'use strict';
   this.paddle.render(context);
 
   // Print score on screen
@@ -29,6 +31,7 @@ Game.Computer.prototype.render = function(context) {
 };
 
 Game.Computer.prototype.update = function(ball) {
+  'use strict';
   var newY, environment;
   environment = {
     ball: ball,

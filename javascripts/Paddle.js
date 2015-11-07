@@ -1,6 +1,7 @@
 var Game = Game || {};
 
 Game.Paddle = function(options) {
+  'use strict';
   this.x = options.x || 20;
   this.y = options.y || 320;
   this.width = options.width || 10;
@@ -10,6 +11,7 @@ Game.Paddle = function(options) {
 };
 
 Game.Paddle.prototype.move = function(x, y, height) {
+  'use strict';
   this.x += x;
   this.y += y;
   this.xSpeed = x;
@@ -26,6 +28,7 @@ Game.Paddle.prototype.move = function(x, y, height) {
 };
 
 Game.Paddle.prototype.render = function(context) {
+  'use strict';
   context.fillStyle = '#FFFFFF';
   context.fillRect(this.x, this.y, this.width, this.height);
 };
