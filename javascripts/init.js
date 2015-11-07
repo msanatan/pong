@@ -10,11 +10,12 @@ engine.register(new Game.MainMenu({
 }, engine));
 
 var animate = (window.requestAnimationFrame ||
-  window.webkitRequestAnimationFrame ||
-  window.mozRequestAnimationFrame ||
-  function(callback) {
-    window.setTimeout(callback, this.FPS);
-  });
+               window.webkitRequestAnimationFrame ||
+               window.mozRequestAnimationFrame ||
+               window.msRequestAnimationFrame ||
+               function(callback) {
+                  window.setTimeout(callback, this.FPS);
+                });
 
 (function() {
   function main() {
