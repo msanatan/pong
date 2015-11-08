@@ -78,16 +78,16 @@ Game.Pong.prototype.checkCollision = function() {
   if (this.ball.x < 0 || this.ball.x > this.width) {
     if (this.ball.x < 0) {
       this.player2.score += 1;
-      this.ball.xSpeed = -3;
+      this.ball.xSpeed = -4;
     }
     else if (this.ball.x > this.width) {
       this.player1.score += 1;
-      this.ball.xSpeed = 3;
+      this.ball.xSpeed = 4;
     }
 
     this.ball.x = this.width / 2;
     this.ball.y = this.height / 2;
-    this.ball.ySpeed = 0;
+    this.ball.ySpeed = Game.getRandomInt(-2, 2);
   }
 
   // Determine if ball the top or bottom
@@ -101,12 +101,12 @@ Game.Pong.prototype.checkCollision = function() {
 
   // Determine if ball hits player or computer
   if (this.bboxCollision(this.player1.paddle.getBBox(), this.ball.getBBox())) {
-    this.ball.xSpeed = -(this.ball.xSpeed - 0.5);
+    this.ball.xSpeed = -(this.ball.xSpeed - 0.25);
     this.ball.x += this.ball.xSpeed;
     this.ball.ySpeed += this.player1.paddle.ySpeed / 2;
   }
   else if (this.bboxCollision(this.player2.paddle.getBBox(), this.ball.getBBox())) {
-    this.ball.xSpeed = -(this.ball.xSpeed + 0.5);
+    this.ball.xSpeed = -(this.ball.xSpeed + 0.25);
     this.ball.x += this.ball.xSpeed;
     this.ball.ySpeed += this.player2.paddle.ySpeed / 2;
   }
