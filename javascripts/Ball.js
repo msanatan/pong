@@ -1,12 +1,17 @@
 var Game = Game || {};
 
+Game.getRandomInt = function(min, max) {
+  'use strict';
+  return Math.floor(Math.random() * (max - min)) + min;
+};
+
 Game.Ball = function(options) {
   'use strict';
   this.x = options.x || 640;
   this.y = options.y || 320;
   this.radius = options.radius || 10;
-  this.xSpeed = options.xSpeed || -3;
-  this.ySpeed = options.ySpeed || 0;
+  this.xSpeed = options.xSpeed || -4;
+  this.ySpeed = options.ySpeed || Game.getRandomInt(-2, 2);
   this.colour = options.colour || 'skyblue';
 };
 
