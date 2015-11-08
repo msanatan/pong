@@ -85,11 +85,11 @@ Game.InputHandler.prototype.KEY = {
   }
 })();
 
-Game.InputHandler.prototype.register = function(canvas) {
+Game.InputHandler.prototype.register = function() {
   'use strict';
   var self;
   self = this;
-  canvas.addEventListener('keydown', function(e) {
+  document.addEventListener('keydown', function(e) {
     if (e.keyCode !== self.KEY.F5 || e.keyCode !== self.KEY.F11) {
       e.preventDefault();
       e.stopPropagation();
@@ -97,7 +97,7 @@ Game.InputHandler.prototype.register = function(canvas) {
     self.keysDown[e.keyCode] = true;
   });
 
-  canvas.addEventListener('keyup', function(e) {
+  document.addEventListener('keyup', function(e) {
     if (e.keyCode !== self.KEY.F5 || e.keyCode !== self.KEY.F11) {
       e.preventDefault();
       e.stopPropagation();
@@ -105,20 +105,20 @@ Game.InputHandler.prototype.register = function(canvas) {
     delete self.keysDown[e.keyCode];
   });
 
-  canvas.addEventListener('mouseover', function(e) {
+  document.addEventListener('mouseover', function(e) {
     self.mouse.x = e.offsetX;
     self.mouse.y = e.offsetY;
   });
 
-  canvas.addEventListener('mousedown', function(e) {
+  document.addEventListener('mousedown', function(e) {
     self.mouse.down = true;
   });
 
-  canvas.addEventListener('click', function(e) {
+  document.addEventListener('click', function(e) {
     self.mouse.clicked = true;
   });
 
-  canvas.addEventListener('mouseup', function(e) {
+  document.addEventListener('mouseup', function(e) {
     self.mouse.down = false;
   });
 };
